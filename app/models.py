@@ -1,4 +1,3 @@
-import uuid
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
@@ -11,7 +10,7 @@ def get_kst_now():
 
 class TodoList(Base):
     __tablename__ = "todo_list"
-    id = Column(String(36), primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
+    id = Column(String(64), primary_key=True, index=True)
     title = Column(String)
     check_status = Column(Boolean, default=False)
     created_at = Column(DateTime, default=get_kst_now)
