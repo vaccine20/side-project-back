@@ -41,7 +41,7 @@ async def get_todolist(db: Session = Depends(get_db)):
         return [
             {
                 "id": item.id,
-                "title": item.title,
+                "title": str(item.title),
                 "check_status": item.check_status,
                 "created_at": item.created_at,
                 "updated_at": item.updated_at
@@ -55,8 +55,8 @@ async def get_todolist(db: Session = Depends(get_db)):
 async def create_todolist(item: TodoCreate, db: Session = Depends(get_db)):
     try:
         todo = TodoList(
-            id = item.id, 
-            title=item.title, 
+            id=item.id, 
+            title=str(item.title),
             check_status=item.check_status, 
             created_at=item.created_at, 
             updated_at=item.updated_at

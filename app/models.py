@@ -11,7 +11,7 @@ def get_kst_now():
 class TodoList(Base):
     __tablename__ = "todo_list"
     id = Column(String(64), primary_key=True, index=True)
-    title = Column(String)
+    title = Column(String, default="")
     check_status = Column(Boolean, default=False)
     created_at = Column(DateTime, default=get_kst_now)
     updated_at = Column(DateTime, default=get_kst_now, onupdate=get_kst_now)
