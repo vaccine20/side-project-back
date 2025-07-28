@@ -1,6 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
+from app.routers.todolist import router as todolist_router
+from app.models import Base
+from app.db import engine
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title='저는 김선용 입니다.',
@@ -34,3 +39,5 @@ async def read_item(user_id: str, user_name: Optional[str] = None):
     return {
         'data' : user_id + ' = ' + '누구세요?'
     }
+
+app.include_router(todolist_router)
