@@ -4,7 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 from pydantic import BaseModel
 from app.db import SessionLocal
-from app.models import TodoList
+from app.models import TodoList, get_kst_now
 
 router = APIRouter()
 
@@ -22,13 +22,10 @@ class TodoCreate(BaseModel):
     id: str
     title: str
     check_status: Optional[bool] = False
-    created_at: datetime
-    updated_at: datetime
 
 class TodoUpdate(BaseModel):
     id: str
     title: str
-    updated_at: datetime
 
 class TodoDelete(BaseModel):
     id: str
@@ -58,8 +55,8 @@ async def create_todolist(item: TodoCreate, db: Session = Depends(get_db)):
             id=item.id, 
             title=str(item.title),
             check_status=item.check_status, 
-            created_at=item.created_at, 
-            updated_at=item.updated_at
+            created_at=get_kst_now(),
+            updated_at=get_kst_now()
         )
         db.add(todo)
         db.commit()
@@ -83,7 +80,7 @@ async def update_todolist(item: List[TodoUpdate], db: Session = Depends(get_db))
             update_item = db.query(TodoList).filter(TodoList.id == update_id).first()
             if update_item:
                 update_item.title = i.title
-                update_item.updated_at = i.updated_at
+                update_item.updated_at = get_kst_now()
         db.commit()
         return {"result": "성공"}
     except:
