@@ -90,9 +90,9 @@ async def update_todolist(item: List[TodoUpdate], db: Session = Depends(get_db))
 
 # ToDoList 아이템 삭제하기
 @router.post("/deleteList")
-async def delete_todolist(item: List[TodoDelete], db: Session = Depends(get_db)):
+async def delete_todolist(item: List[str], db: Session = Depends(get_db)):
     try: 
-        delete_ids = [i.id for i in item]
+        delete_ids = [i for i in item]
         
         if not delete_ids:
             return {"result": "성공"}
