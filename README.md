@@ -10,5 +10,7 @@ sqlite
 
 ## 시작(로컬)
 
+```bash
 1. pip install -r requirements.txt
 2. uvicorn app.main:app --reload --port 8000
+```
